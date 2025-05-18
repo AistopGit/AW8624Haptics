@@ -1,0 +1,57 @@
+;
+; AW8624Haptics.inf
+;
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = System
+ClassGuid   = {4d36e97d-e325-11ce-bfc1-08002be10318}
+Provider    = %ManufacturerName%
+CatalogFile = AW8624Haptics.cat
+DriverVer   = 1.0.0
+PnpLockdown = 1
+
+[DestinationDirs]
+DefaultDestDir = 13
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+AW8624Haptics.sys = 1,,
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName% = Standard,NT$ARCH$.10.0...16299
+
+[Standard.NT$ARCH$.10.0...16299]
+%AW8624Haptics.DeviceDesc% = AW8624Haptics_Device, ACPI\AWNC8624
+
+[AW8624Haptics_Device.NT]
+CopyFiles = Drivers_Dir
+
+[Drivers_Dir]
+AW8624Haptics.sys
+
+;-------------- Service installation
+[AW8624Haptics_Device.NT.Services]
+AddService = AW8624Haptics, %SPSVCINST_ASSOCSERVICE%, AW8624Haptics_Service_Inst
+
+; -------------- AW8624Haptics driver install sections
+[AW8624Haptics_Service_Inst]
+DisplayName    = %AW8624Haptics.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %13%\AW8624Haptics.sys
+
+[Strings]
+SPSVCINST_ASSOCSERVICE    = 0x00000002
+
+ManufacturerName          = "Aistop"
+DiskName                  = "AW8624 Haptics Installation Disk"
+AW8624Haptics.DeviceDesc  = "AW8624 Haptics Device"
+AW8624Haptics.SVCDESC     = "AW8624 Haptics Device"

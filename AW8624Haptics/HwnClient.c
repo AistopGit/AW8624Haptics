@@ -260,6 +260,7 @@ AW8624HapticsStartDevice(
 	__in PVOID Context
 )
 {
+	UNREFERENCED_PARAMETER(Context);
 	NTSTATUS status = STATUS_SUCCESS;
 
 	PAGED_CODE();
@@ -267,9 +268,6 @@ AW8624HapticsStartDevice(
 #ifdef DEBUG
 	Trace(TRACE_LEVEL_INFORMATION, TRACE_DRIVER, "%!FUNC! Entry");
 #endif
-
-	PDEVICE_CONTEXT devContext = (PDEVICE_CONTEXT)Context;
-	status = AW8624VibrateUntilStopped(devContext);
 
 	return status;
 }
@@ -279,6 +277,7 @@ AW8624HapticsStopDevice(
 	__in PVOID Context
 )
 {
+	UNREFERENCED_PARAMETER(Context);
 	NTSTATUS status = STATUS_SUCCESS;
 
 	PAGED_CODE();
@@ -286,9 +285,6 @@ AW8624HapticsStopDevice(
 #ifdef DEBUG
 	Trace(TRACE_LEVEL_INFORMATION, TRACE_DRIVER, "%!FUNC! Entry");
 #endif
-
-	PDEVICE_CONTEXT devContext = (PDEVICE_CONTEXT)Context;
-	status = AW8624Stop(devContext);
 
 	return status;
 }
